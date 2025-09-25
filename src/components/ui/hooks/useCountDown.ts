@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from 'react';
 
 export const useCountdown = (initialSeconds: number) => {
   const [secondsLeft, setSecondsLeft] = useState(initialSeconds);
@@ -25,7 +25,7 @@ export const useCountdown = (initialSeconds: number) => {
   const formatTime = (sec: number) => {
     const minutes = Math.floor(sec / 60);
     const seconds = sec % 60;
-    const pad = (n: number) => n.toString().padStart(2, "0");
+    const pad = (n: number) => n.toString().padStart(2, '0');
     return `${pad(minutes)}:${pad(seconds)}`;
   };
 

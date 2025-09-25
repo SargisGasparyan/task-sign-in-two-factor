@@ -1,28 +1,26 @@
-import React from "react";
-import { useMutation } from "@tanstack/react-query";
-import logo from "@assets/icons/logo.svg";
-import styles from "./TwoFaPage.module.scss";
-import TwoFactorAuth from "@components/two-fa/TwoFaAuth";
-import ErrorMessage from "@components/error-message/ErrorMessage";
-import { useSelector } from "react-redux";
-import type { RootState } from "@store/store";
-import { mockVerifyTwoFaCode } from "@api/twoFactor";
+import React from 'react';
+import { useMutation } from '@tanstack/react-query';
+import logo from '@assets/icons/logo.svg';
+import styles from './TwoFaPage.module.scss';
+import TwoFactorAuth from '@components/two-fa/TwoFaAuth';
+import ErrorMessage from '@components/error-message/ErrorMessage';
+import { useSelector } from 'react-redux';
+import type { RootState } from '@store/store';
+import { mockVerifyTwoFaCode } from '@api/twoFactor';
 
 const TwoFaPage: React.FC = () => {
   // --- Redux state (destructured) ---
-  const { showCountdown, isWriting } = useSelector(
-    (state: RootState) => state.twoFactor
-  );
+  const { showCountdown, isWriting } = useSelector((state: RootState) => state.twoFactor);
 
   // --- React Query mutation for 2FA verification ---
   const { mutate, isPending, error } = useMutation({
     mutationFn: mockVerifyTwoFaCode,
     onSuccess: (data) => {
-      console.log("2FA verified (mock):", data);
-      alert("Код верный! Токен: " + data.token);
+      console.log('2FA verified (mock):', data);
+      alert('Код верный! Токен: ' + data.token);
     },
     onError: (err) => {
-      console.error("Ошибка 2FA:", err.message);
+      console.error('Ошибка 2FA:', err.message);
     },
   });
 
@@ -40,9 +38,7 @@ const TwoFaPage: React.FC = () => {
             <p className={styles.companyName}>Company</p>
           </article>
           <p className={styles.title}>Two-Factor Authentication</p>
-          <p className={styles.desc}>
-            Enter the 6-digit code from the Google Authenticator app
-          </p>
+          <p className={styles.desc}>Enter the 6-digit code from the Google Authenticator app</p>
         </section>
 
         <TwoFactorAuth

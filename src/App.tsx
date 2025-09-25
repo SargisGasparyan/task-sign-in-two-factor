@@ -1,11 +1,6 @@
-import SignInPage from "@pages/sign-in/SignInPage";
-import TwoFaPage from "@pages/two-fa/TwoFaPage";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import SignInPage from '@pages/sign-in/SignInPage';
+import TwoFaPage from '@pages/two-fa/TwoFaPage';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
   return (

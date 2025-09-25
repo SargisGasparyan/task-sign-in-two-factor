@@ -4,13 +4,13 @@ import React, {
   type KeyboardEvent,
   type FormEvent,
   type ChangeEvent,
-} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "@store/store";
-import { setTwoFa, setShowCountdown, setIsWriting } from "@store/twoFaSlice";
-import { useCountdown } from "@components/ui/hooks/useCountDown";
-import Button from "@components/ui/Button/Button";
-import styles from "./TwoFaAuth.module.scss";
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '@store/store';
+import { setTwoFa, setShowCountdown, setIsWriting } from '@store/twoFaSlice';
+import { useCountdown } from '@components/ui/hooks/useCountDown';
+import Button from '@components/ui/Button/Button';
+import styles from './TwoFaAuth.module.scss';
 
 interface TwoFactorAuthProps {
   length?: number;
@@ -42,12 +42,8 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
 
   // --- Derived state ---
   // Cheap calculations: React 19 compiler keeps them efficient.
-  const isEmpty = twoFaCode.every((v) => v === "");
-  const buttonLabel = isLoading
-    ? "Checking…"
-    : isEmpty
-    ? "Get now"
-    : "Continue";
+  const isEmpty = twoFaCode.every((v) => v === '');
+  const buttonLabel = isLoading ? 'Checking…' : isEmpty ? 'Get now' : 'Continue';
 
   // --- Handlers ---
   // Move focus to the next input
@@ -65,11 +61,8 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
   };
 
   // Handle backspace navigation to the previous input
-  const handleBackspace = (
-    e: KeyboardEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    if (e.key === "Backspace" && !twoFaCode[index] && index > 0) {
+  const handleBackspace = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (e.key === 'Backspace' && !twoFaCode[index] && index > 0) {
       inputsRef.current[index - 1]?.focus();
     }
   };
@@ -88,7 +81,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
       return;
     }
 
-    const code = twoFaCode.join("");
+    const code = twoFaCode.join('');
     if (code.length === length && !isLoading) {
       dispatch(setShowCountdown(false));
       reset();
@@ -114,9 +107,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
         maxLength={1}
         aria-invalid={!!errorMessage && !showCountdown && !isWriting}
         value={val}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          handleChange(i, e.target.value)
-        }
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(i, e.target.value)}
         onKeyDown={(e) => handleBackspace(e, i)}
       />
     ));

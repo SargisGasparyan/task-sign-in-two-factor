@@ -1,4 +1,4 @@
-@use "../../../styles/variables" as *;
+@use '../../../styles/variables' as *;
 
 .button {
   width: 100%;
@@ -9,7 +9,9 @@
   color: $color-white;
   background-color: $color-primary;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    transform 0.1s;
   border: none;
 
   &:hover {

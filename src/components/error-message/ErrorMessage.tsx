@@ -1,5 +1,5 @@
-import React from "react";
-import styles from "./ErrorMessage.module.scss";
+import React from 'react';
+import styles from './ErrorMessage.module.scss';
 
 interface ErrorMessageProps {
   message: string;

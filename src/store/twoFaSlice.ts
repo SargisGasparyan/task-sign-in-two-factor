@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface TwoFaState {
   twoFaCode: string[];
@@ -7,13 +7,13 @@ interface TwoFaState {
 }
 
 const initialState: TwoFaState = {
-  twoFaCode: ["", "", "", "", "", ""],
+  twoFaCode: ['', '', '', '', '', ''],
   showCountdown: true,
   isWriting: false, // initial value
 };
 
 const twoFactor = createSlice({
-  name: "twoFa",
+  name: 'twoFa',
   initialState,
   reducers: {
     setTwoFa: (state, action: PayloadAction<string[]>) => {
@@ -21,7 +21,7 @@ const twoFactor = createSlice({
     },
 
     resetTwoFA: (state) => {
-      state.twoFaCode = ["", "", "", "", "", ""];
+      state.twoFaCode = ['', '', '', '', '', ''];
       state.showCountdown = false;
       state.isWriting = false; // reset writing flag too
     },
@@ -36,6 +36,5 @@ const twoFactor = createSlice({
   },
 });
 
-export const { setTwoFa, resetTwoFA, setShowCountdown, setIsWriting } =
-  twoFactor.actions;
+export const { setTwoFa, resetTwoFA, setShowCountdown, setIsWriting } = twoFactor.actions;
 export default twoFactor.reducer;

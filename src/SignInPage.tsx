@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import "./SignInPage.module.scss";
-import Input from "@components/ui/Input/Input";
-import Button from "@components/ui/Button/Button";
-import logo from "@assets/logo.svg";
-import { ReactComponent as UserIcon } from "@assets/logo.svg";
+import React, { useState } from 'react';
+import './SignInPage.module.scss';
+import Input from '@components/ui/Input/Input';
+import Button from '@components/ui/Button/Button';
+import logo from '@assets/logo.svg';
+import userIcon from '@assets/icons/user.svg';
 
-import styles from "./SignInPage.module.scss";
+import styles from './SignInPage.module.scss';
 
 const SignInPage: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const SignInPage: React.FC = () => {
               type="email"
               placeholder="Email"
               value={email}
-              icon={<UserIcon />}
+              iconUrl={userIcon}
               onChange={(e) => setEmail(e.target.value)}
             />
 

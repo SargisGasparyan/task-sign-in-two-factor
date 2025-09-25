@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import Input from "@components/ui/Input/Input";
-import Button from "@components/ui/Button/Button";
-import ErrorMessage from "@components/error-message/ErrorMessage";
+import React, { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import Input from '@components/ui/Input/Input';
+import Button from '@components/ui/Button/Button';
+import ErrorMessage from '@components/error-message/ErrorMessage';
 
-import logo from "@assets/icons/logo.svg";
-import user from "@assets/icons/user.svg";
-import pass from "@assets/icons/pass.svg";
+import logo from '@assets/icons/logo.svg';
+import user from '@assets/icons/user.svg';
+import pass from '@assets/icons/pass.svg';
 
-import styles from "./SignInPage.module.scss";
-import { mockSignIn } from "../../api/auth";
+import styles from './SignInPage.module.scss';
+import { mockSignIn } from '../../api/auth';
 
 const SignInPage: React.FC = () => {
   // --- Local state ---
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   // --- Navigation ---
   const navigate = useNavigate();
@@ -24,8 +24,8 @@ const SignInPage: React.FC = () => {
   const { mutate, isPending, error } = useMutation({
     mutationFn: mockSignIn,
     onSuccess: (data) => {
-      console.log("Успешный вход! Токен:", data.token);
-      navigate("/two-fa");
+      console.log('Успешный вход! Токен:', data.token);
+      navigate('/two-fa');
     },
   });
 
@@ -65,12 +65,10 @@ const SignInPage: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          {error && (
-            <ErrorMessage message={(error as { message: string }).message} />
-          )}
+          {error && <ErrorMessage message={(error as { message: string }).message} />}
 
           <Button type="submit" disabled={!email || !password || isPending}>
-            {isPending ? "Logging in..." : "Log in"}
+            {isPending ? 'Logging in...' : 'Log in'}
           </Button>
         </form>
       </article>

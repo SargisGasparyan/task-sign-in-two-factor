@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 // интерфейс состояния
 interface AuthState {
@@ -9,13 +9,13 @@ interface AuthState {
 
 // начальное состояние
 const initialState: AuthState = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
   twoFa: false,
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     setEmail: (state, action: PayloadAction<string>) => {

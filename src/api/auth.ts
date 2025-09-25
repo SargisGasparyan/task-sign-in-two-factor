@@ -1,8 +1,8 @@
 // mock API для авторизации
 export enum AuthErrorCode {
-  InvalidEmail = "InvalidEmail",
-  UserNotFound = "UserNotFound",
-  WrongPassword = "WrongPassword",
+  InvalidEmail = 'InvalidEmail',
+  UserNotFound = 'UserNotFound',
+  WrongPassword = 'WrongPassword',
 }
 
 export interface SignInPayload {
@@ -21,12 +21,12 @@ export const mockSignIn = async ({ email, password }: SignInPayload) => {
 
       // Проверка пароля: ровно 6 цифр и конкретное значение «123456»
       const passwordRegex = /^\d{6}$/;
-      if (!passwordRegex.test(password) || password !== "123456") {
+      if (!passwordRegex.test(password) || password !== '123456') {
         return reject(new Error(AuthErrorCode.WrongPassword));
       }
 
       // Успешный ответ
-      resolve({ token: "fake-jwt-token", twoFa: true });
+      resolve({ token: 'fake-jwt-token', twoFa: true });
     }, 1000);
   });
 };
