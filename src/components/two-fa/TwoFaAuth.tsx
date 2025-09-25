@@ -2,14 +2,14 @@ import React, {
   useRef,
   useCallback,
   useMemo,
-  useEffect,
   type KeyboardEvent,
   type FormEvent,
   type ChangeEvent,
+  useEffect,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@store/store";
-import { setTwoFa } from "@store/twoFaSlice";
+import { setTwoFa, setShowCountdown } from "@store/twoFaSlice";
 import { useCountdown } from "@hooks/useCountDown";
 
 import Button from "@components/ui/Button/Button";
@@ -34,39 +34,38 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
   const twoFaCode = useSelector(
     (state: RootState) => state.twoFactor.twoFaCode
   );
+  const showCountdown = useSelector(
+    (state: RootState) => state.twoFactor.showCountdown
+  );
+
   const inputsRef = useRef<HTMLInputElement[]>([]);
-  const { formattedTime, isZero } = useCountdown(10);
+  const { formattedTime, isZero, reset } = useCountdown(60);
 
   const isEmptyInput = useMemo(
     () => twoFaCode.every((v) => v === ""),
     [twoFaCode]
   );
-  const isGetNow = isEmptyInput && isZero;
 
-  // Button text logic
+  // Button text
   const btnText = useMemo(() => {
     if (isLoading) return "Checking…";
     if (isEmptyInput) return "Get now";
     return "Continue";
   }, [isLoading, isEmptyInput]);
 
-  // Handle input changes
+  // Input change
   const handleChange = useCallback(
     (index: number, val: string) => {
       if (!/^\d?$/.test(val)) return;
-
       const nextValues = [...twoFaCode];
       nextValues[index] = val;
       dispatch(setTwoFa(nextValues));
-
-      if (val && index < length - 1) {
-        inputsRef.current[index + 1]?.focus();
-      }
+      if (val && index < length - 1) inputsRef.current[index + 1]?.focus();
     },
     [dispatch, twoFaCode, length]
   );
 
-  // Handle backspace navigation
+  // Backspace navigation
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>, index: number) => {
       if (e.key === "Backspace" && !twoFaCode[index] && index > 0) {
@@ -76,23 +75,41 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
     [twoFaCode]
   );
 
-  // Handle form submission
+  // Form submit
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
 
-      if (isGetNow) {
-        console.log("Request new code");
+      if (isEmptyInput && !showCountdown) {
+        // "Get now" clicked
+        dispatch(setShowCountdown(true));
+        reset();
         return;
       }
 
       const code = twoFaCode.join("");
       if (code.length === length && !isLoading) {
+        dispatch(setShowCountdown(false));
+        reset();
+
         onVerify(code);
       }
     },
-    [twoFaCode, length, isLoading, onVerify, isGetNow]
+    [
+      twoFaCode,
+      length,
+      isLoading,
+      onVerify,
+      isEmptyInput,
+      showCountdown,
+      dispatch,
+      reset,
+    ]
   );
+  console.log(errorMessage, showCountdown, "infoo");
+  useEffect(() => {
+    if (isZero) dispatch(setShowCountdown(false));
+  }, [isZero, dispatch]);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
@@ -106,7 +123,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
             className={styles.input}
             type="text"
             inputMode="numeric"
-            aria-invalid={!!errorMessage}
+            aria-invalid={!!errorMessage && !showCountdown}
             maxLength={1}
             value={val}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -117,7 +134,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
         ))}
       </div>
 
-      {isEmptyInput && !isZero ? (
+      {showCountdown && isEmptyInput ? (
         <p className={styles.countDown}>Get a new code in {formattedTime}</p>
       ) : (
         <Button type="submit" disabled={isLoading || isSuccess}>

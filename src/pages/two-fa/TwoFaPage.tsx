@@ -4,6 +4,8 @@ import logo from "@assets/icons/logo.svg";
 import styles from "./TwoFaPage.module.scss";
 import TwoFactorAuth from "@components/two-fa/TwoFaAuth";
 import ErrorMessage from "@components/error-message/ErrorMessage";
+import { useSelector } from "react-redux";
+import type { RootState } from "@store/store";
 
 const mockVerifyTwoFaCode = async (code: string) => {
   return new Promise<{ success: boolean; token?: string }>(
@@ -20,6 +22,9 @@ const mockVerifyTwoFaCode = async (code: string) => {
 };
 
 const TwoFaPage: React.FC = () => {
+  const showCountdown = useSelector(
+    (state: RootState) => state.twoFactor.showCountdown
+  );
   const { mutate, isPending, error } = useMutation({
     mutationFn: mockVerifyTwoFaCode,
     onSuccess: (data) => {
@@ -62,7 +67,7 @@ const TwoFaPage: React.FC = () => {
           isLoading={isPending}
         />
 
-        {error && (
+        {error && !showCountdown && (
           <ErrorMessage message={(error as { message: string }).message} />
         )}
       </article>
