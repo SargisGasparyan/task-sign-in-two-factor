@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { useMutation } from "@tanstack/react-query";
 import logo from "@assets/icons/logo.svg";
 import styles from "./TwoFaPage.module.scss";
@@ -9,31 +9,25 @@ import type { RootState } from "@store/store";
 import { mockVerifyTwoFaCode } from "@api/twoFactor";
 
 const TwoFaPage: React.FC = () => {
-  const showCountdown = useSelector(
-    (state: RootState) => state.twoFactor.showCountdown
+  // --- Redux state (destructured) ---
+  const { showCountdown, isWriting } = useSelector(
+    (state: RootState) => state.twoFactor
   );
 
-  const isWriting = useSelector(
-    (state: RootState) => state.twoFactor.isWriting
-  );
+  // --- React Query mutation for 2FA verification ---
   const { mutate, isPending, error } = useMutation({
     mutationFn: mockVerifyTwoFaCode,
     onSuccess: (data) => {
       console.log("2FA verified (mock):", data);
       alert("Код верный! Токен: " + data.token);
     },
-    onError: (err: any) => {
+    onError: (err) => {
       console.error("Ошибка 2FA:", err.message);
     },
   });
 
-  // Мемоизируем колбэк
-  const handleVerify = useCallback(
-    (code: string) => {
-      mutate(code);
-    },
-    [mutate]
-  );
+  // --- Handler for TwoFactorAuth verification, React 19 automatically stabilizes this function reference ::)
+  const handleVerify = (code: string) => mutate(code);
 
   return (
     <main className={styles.container}>

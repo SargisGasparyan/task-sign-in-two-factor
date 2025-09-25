@@ -1,24 +1,26 @@
-// SignInPage.tsx
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import "./SignInPage.module.scss";
+import { useNavigate } from "react-router-dom";
 import Input from "@components/ui/Input/Input";
 import Button from "@components/ui/Button/Button";
+import ErrorMessage from "@components/error-message/ErrorMessage";
+
 import logo from "@assets/icons/logo.svg";
 import user from "@assets/icons/user.svg";
 import pass from "@assets/icons/pass.svg";
 
 import styles from "./SignInPage.module.scss";
 import { mockSignIn } from "../../api/auth";
-import { useNavigate } from "react-router-dom";
-import ErrorMessage from "@components/error-message/ErrorMessage";
 
 const SignInPage: React.FC = () => {
+  // --- Local state ---
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // --- Navigation ---
   const navigate = useNavigate();
 
+  // --- React Query mutation for sign-in ---
   const { mutate, isPending, error } = useMutation({
     mutationFn: mockSignIn,
     onSuccess: (data) => {
@@ -27,6 +29,7 @@ const SignInPage: React.FC = () => {
     },
   });
 
+  // --- Form submit handler ---
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     mutate({ email, password });
