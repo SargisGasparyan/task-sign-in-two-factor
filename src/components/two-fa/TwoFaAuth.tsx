@@ -34,7 +34,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
   const twoFaCode = useSelector(
     (state: RootState) => state.twoFactor.twoFaCode
   );
-  const [btnText, setButtonText] = React.useState("Get now");
+  const [btnText, setButtonText] = React.useState("Continue");
 
   const inputsRef = useRef<HTMLInputElement[]>([]);
   const { formattedTime, isZero } = useCountdown(10);
@@ -43,6 +43,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
     () => twoFaCode.every((v) => v === ""),
     [twoFaCode]
   );
+  const isGetNow = isEmptyInput && isZero;
 
   useEffect(() => {
     if (isLoading) {
@@ -57,7 +58,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
   console.log(btnText, "btnText");
   const handleChange = useCallback(
     (index: number, val: string) => {
-      if (!/^\d?$/.test(val)) return; // allow only digits or empty
+      if (!/^\d?$/.test(val)) return;
       const nextValues = [...twoFaCode];
       nextValues[index] = val;
       dispatch(setTwoFa(nextValues));
@@ -67,12 +68,6 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
     },
     [dispatch, twoFaCode, length]
   );
-
-  //  useEffect(()=>{
-  //     if(btnText==="Get now"){
-
-  //     }
-  //   },[btnText])
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>, index: number) => {
@@ -86,19 +81,23 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
+
       const code = twoFaCode.join("");
+
+      if (isGetNow) {
+        // Logic for "Get Now" — request new 2FA code
+        console.log("Request new code");
+        // You can dispatch something like: dispatch(requestNewTwoFA())
+        return;
+      }
+
       if (code.length === length && !isLoading) {
+        // Logic for "Continue" — verify code
         onVerify(code);
       }
     },
-    [twoFaCode, length, isLoading, onVerify]
+    [twoFaCode, length, isLoading, onVerify, isEmptyInput, isZero]
   );
-
-  const buttonText = useMemo(() => {
-    if (isLoading) return "Checking…";
-    return isEmptyInput ? "Get now" : "Continue";
-  }, [isLoading, isSuccess, isEmptyInput]);
-
   const renderInputs = () =>
     twoFaCode.map((v, i) => (
       <input
@@ -119,19 +118,27 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
       />
     ));
 
+  const renderAction = () => {
+    if (!isZero && isEmptyInput) {
+      // Show countdown
+      return (
+        <p className={styles.countDown}>Get a new code in {formattedTime}</p>
+      );
+    }
+
+    // Otherwise show button
+    return (
+      <Button type="submit" disabled={isLoading || isSuccess}>
+        {btnText}
+      </Button>
+    );
+  };
+
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <div className={styles.inputs}>{renderInputs()}</div>
 
-      {!isZero && isEmptyInput && (
-        <p className={styles.countDown}>Get a new code in {formattedTime}</p>
-      )}
-
-      {(isZero || !isEmptyInput) && (
-        <Button type="submit" disabled={isLoading || isSuccess}>
-          {btnText}
-        </Button>
-      )}
+      {renderAction()}
     </form>
   );
 };
