@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@store/store";
-import { setTwoFa, setShowCountdown } from "@store/twoFaSlice";
+import { setTwoFa, setShowCountdown, setIsWriting } from "@store/twoFaSlice";
 import { useCountdown } from "@hooks/useCountDown";
 
 import Button from "@components/ui/Button/Button";
@@ -38,8 +38,12 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
     (state: RootState) => state.twoFactor.showCountdown
   );
 
+  const isWriting = useSelector(
+    (state: RootState) => state.twoFactor.isWriting
+  );
+
   const inputsRef = useRef<HTMLInputElement[]>([]);
-  const { formattedTime, isZero, reset } = useCountdown(60);
+  const { formattedTime, isZero, reset } = useCountdown(5);
 
   const isEmptyInput = useMemo(
     () => twoFaCode.every((v) => v === ""),
@@ -79,10 +83,13 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
   const handleSubmit = useCallback(
     (e: FormEvent) => {
       e.preventDefault();
+      dispatch(setIsWriting(false));
 
       if (isEmptyInput && !showCountdown) {
         // "Get now" clicked
         dispatch(setShowCountdown(true));
+        dispatch(setIsWriting(true));
+
         reset();
         return;
       }
@@ -123,7 +130,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
             className={styles.input}
             type="text"
             inputMode="numeric"
-            aria-invalid={!!errorMessage && !showCountdown}
+            aria-invalid={!!errorMessage && !showCountdown && !isWriting}
             maxLength={1}
             value={val}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>

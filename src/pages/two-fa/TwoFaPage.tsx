@@ -25,6 +25,10 @@ const TwoFaPage: React.FC = () => {
   const showCountdown = useSelector(
     (state: RootState) => state.twoFactor.showCountdown
   );
+
+  const isWriting = useSelector(
+    (state: RootState) => state.twoFactor.isWriting
+  );
   const { mutate, isPending, error } = useMutation({
     mutationFn: mockVerifyTwoFaCode,
     onSuccess: (data) => {
@@ -67,7 +71,7 @@ const TwoFaPage: React.FC = () => {
           isLoading={isPending}
         />
 
-        {error && !showCountdown && (
+        {error && !showCountdown && !isWriting && (
           <ErrorMessage message={(error as { message: string }).message} />
         )}
       </article>
