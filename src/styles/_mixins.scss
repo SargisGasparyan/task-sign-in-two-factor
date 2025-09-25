@@ -1,0 +1,15 @@
+// Центрирование по flex
+@mixin flex-center($direction: row, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+  gap: $gap;
+}
+
+// Текстовые заголовки
+@mixin text-style($size, $weight: 400, $align: center) {
+  font-size: $size;
+  font-weight: $weight;
+  text-align: $align;
+}

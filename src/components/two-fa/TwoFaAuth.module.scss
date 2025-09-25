@@ -1,53 +1,54 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  @include flex-center(column, 24px);
+
   .countDown {
-    color: #000000a6;
+    color: $color-gray-text;
+    font-size: $font-size-md;
   }
 }
 
 .inputs {
-  display: flex;
-  gap: 18px;
+  @include flex-center(row, 18px);
 }
 
 .input {
   width: 48px;
   height: 56px;
   text-align: center;
-  font-size: 1.5rem;
-  border: 2px solid #ccc;
+  font-size: $font-size-xl;
+  border: 2px solid $color-gray-border;
   border-radius: 12px;
   outline: none;
   transition: border-color 0.2s;
 
   &:focus {
-    border-color: #0070f3;
+    border-color: $color-primary;
   }
 
   &[aria-invalid="true"] {
-    border: 1px solid #e53935; /* red border for error */
+    border: 1px solid $color-error;
   }
 }
 
 .button {
   padding: 12px 24px;
-  background: #0070f3;
-  color: #fff;
+  background: $color-primary;
+  color: $color-white;
   border: none;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: $font-size-md;
   cursor: pointer;
   transition: background 0.2s;
 
   &:disabled {
-    background: #999;
+    background: $color-gray-light;
     cursor: not-allowed;
   }
 
   &:not(:disabled):hover {
-    background: #005ac1;
+    background: $color-gray-hover;
   }
 }

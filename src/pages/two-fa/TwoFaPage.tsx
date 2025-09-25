@@ -6,20 +6,7 @@ import TwoFactorAuth from "@components/two-fa/TwoFaAuth";
 import ErrorMessage from "@components/error-message/ErrorMessage";
 import { useSelector } from "react-redux";
 import type { RootState } from "@store/store";
-
-const mockVerifyTwoFaCode = async (code: string) => {
-  return new Promise<{ success: boolean; token?: string }>(
-    (resolve, reject) => {
-      setTimeout(() => {
-        if (code === "123456") {
-          resolve({ success: true, token: "mock-token-123" });
-        } else {
-          reject(new Error("Неверный код 2FA"));
-        }
-      }, 1000);
-    }
-  );
-};
+import { mockVerifyTwoFaCode } from "@api/twoFactor";
 
 const TwoFaPage: React.FC = () => {
   const showCountdown = useSelector(
@@ -36,7 +23,6 @@ const TwoFaPage: React.FC = () => {
       alert("Код верный! Токен: " + data.token);
     },
     onError: (err: any) => {
-      // dispatch(resetTwoFA());
       console.error("Ошибка 2FA:", err.message);
     },
   });

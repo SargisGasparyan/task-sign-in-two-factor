@@ -1,8 +1,26 @@
-// _variables.scss
+// src/styles/_variables.scss
+
+// ---- Colors ----
 $color-primary: #1a73e8;
 $color-secondary: #fbbc05;
 $color-success: #34a853;
 $color-error: #ea4335;
 $color-white: #ffffff;
 $color-black: #000000;
-$color-d9d: #d9d9d9;
+$color-primary-hover: #1e40af;
+$color-gray-light: #d9d9d9;
+$color-gray-border: #ccc;
+$color-gray-hover: #005ac1;
+$color-gray-text: #000000a6;
+$color-disabled: #ccc;
+$color-primary-active: #1d4ed8;
+
+// ---- Font sizes ----
+$font-size-xs: 0.75rem; // ~12px
+$font-size-sm: 0.875rem; // ~14px
+$font-size-md: 1rem; // ~16px
+$font-size-lg: 1.25rem; // ~20px
+$font-size-xl: 1.5rem; // ~24px
+$font-size-2xl: 1.75rem; // ~28px
+
+$font-weight-medium: 500;

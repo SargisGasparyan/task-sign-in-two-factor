@@ -1,26 +1,28 @@
+@use "../../../styles/variables" as *;
+
 .button {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  color: #fff;
-  background-color: #2563eb;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $color-white;
+  background-color: $color-primary;
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
   border: none;
 
   &:hover {
-    background-color: #1e40af;
+    background-color: $color-primary-hover;
   }
 
   &:active {
-    background-color: #1d4ed8;
+    background-color: $color-primary-active;
     transform: scale(0.98);
   }
 
   &:disabled {
-    background-color: #ccc;
+    background-color: $color-disabled;
     cursor: not-allowed;
   }
 }
