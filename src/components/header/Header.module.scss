@@ -1,0 +1,28 @@
+@use '../../styles//variables' as v;
+@use '../../styles/mixins' as *;
+
+.infoWrapper {
+  position: relative;
+  @include flex-center(column);
+
+  .logoWrapper {
+    @include flex-center(row, 9px);
+  }
+
+  .title {
+    @include text-style(v.$font-size-2xl, 600);
+    color: v.$color-black;
+  }
+
+  .desc {
+    @include text-style(v.$font-size-md, 400);
+    color: v.$color-black;
+  }
+
+  .backBtn {
+    position: absolute;
+    left: -10px;
+    top: -12px;
+    cursor: pointer;
+  }
+}

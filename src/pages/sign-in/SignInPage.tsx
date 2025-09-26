@@ -5,12 +5,12 @@ import Input from '@components/ui/Input/Input';
 import Button from '@components/ui/Button/Button';
 import ErrorMessage from '@components/error-message/ErrorMessage';
 
-import logo from '@assets/icons/logo.svg';
 import user from '@assets/icons/user.svg';
 import pass from '@assets/icons/pass.svg';
 
 import styles from './SignInPage.module.scss';
 import { mockSignIn } from '../../api/auth';
+import Header from '@components/header/Header';
 
 const SignInPage: React.FC = () => {
   // --- Local state ---
@@ -38,15 +38,7 @@ const SignInPage: React.FC = () => {
   return (
     <main className={styles.container}>
       <article className={styles.wrapper}>
-        <section className={styles.infoWrapper}>
-          <article className={styles.logoWrapper}>
-            <figure>
-              <img src={logo} alt="logo-image" />
-            </figure>
-            <p className={styles.companyName}>Company</p>
-          </article>
-          <h1 className={styles.title}>Sign in to your account to continue</h1>
-        </section>
+        <Header title="Sign in to your account to continue" />
 
         <form onSubmit={handleSubmit} className={styles.formWrapper}>
           <Input
