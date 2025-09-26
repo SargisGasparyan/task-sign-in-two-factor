@@ -1,5 +1,5 @@
 export enum AuthErrorCode {
-  InvalidEmail = 'InvalidEmail',
-  UserNotFound = 'UserNotFound',
-  WrongPassword = 'WrongPassword',
+  InvalidEmail = 'Invalid Email',
+  UserNotFound = 'User Not Found',
+  WrongPassword = 'Wrong Password',
 }

@@ -37,6 +37,9 @@
       width: 100%;
       // колонка с gap 16px
       @include flex-center(column, 16px);
+      .errrWrapper {
+        width: 100%;
+      }
     }
   }
 }

@@ -33,7 +33,7 @@ export default defineConfig([
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
 
-      // Общие JS
+      // JS
       'no-console': 'warn',
       'no-empty': 'warn',
     },

@@ -11,20 +11,24 @@ import pass from '@assets/icons/pass.svg';
 import styles from './SignInPage.module.scss';
 import { mockSignIn } from '../../api/auth';
 import Header from '@components/header/Header';
+import { resetTwoFA } from '@store/twoFaSlice';
+import { useDispatch } from 'react-redux';
 
 const SignInPage: React.FC = () => {
   // --- Local state ---
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // --- Navigation ---
+  // --- Navigation Dispatch---
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // --- React Query mutation for sign-in ---
   const { mutate, isPending, error } = useMutation({
     mutationFn: mockSignIn,
     onSuccess: (data) => {
       console.log('Successful login! Token:', data.token);
+      dispatch(resetTwoFA());
       navigate('/two-fa');
     },
   });
@@ -57,7 +61,11 @@ const SignInPage: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          {error && <ErrorMessage message={(error as { message: string }).message} />}
+          {error && (
+            <section className={styles.errrWrapper}>
+              <ErrorMessage message={(error as { message: string }).message} />
+            </section>
+          )}
 
           <Button type="submit" disabled={!email || !password || isPending}>
             {isPending ? 'Logging in...' : 'Log in'}

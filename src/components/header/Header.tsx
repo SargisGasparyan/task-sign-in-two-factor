@@ -1,4 +1,3 @@
-// DynamicHeader.tsx
 import React from 'react';
 import logo from '@assets/icons/logo.svg';
 import back from '@assets/icons/back.svg';

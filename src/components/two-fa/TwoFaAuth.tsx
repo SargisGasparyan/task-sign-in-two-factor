@@ -35,8 +35,8 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
     (state: RootState) => state.twoFactor
   );
 
-  // --- Countdown hook (5 sec) ---
-  const { formattedTime, isZero, reset } = useCountdown(5);
+  // --- Countdown hook (30 sec) ---
+  const { formattedTime, isZero, reset } = useCountdown(30);
 
   // --- Refs ---
   const inputsRef = useRef<HTMLInputElement[]>([]);
@@ -45,6 +45,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
   // Cheap calculations: React 19 compiler keeps them efficient.
   const isEmpty = twoFaCode.every((v) => v === '');
   const buttonLabel = isLoading ? 'Checking…' : isEmpty ? 'Get now' : 'Continue';
+  const isShowError = !!errorMessage && !showCountdown && !isWriting;
 
   // --- Handlers ---
   // Move focus to the next input
@@ -93,6 +94,9 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
   // Hide countdown when timer ends
   useEffect(() => {
     if (isZero) dispatch(setShowCountdown(false));
+    return () => {
+      dispatch(setShowCountdown(true));
+    };
   }, [isZero, dispatch]);
 
   // --- Render ---
@@ -106,7 +110,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
         type="text"
         inputMode="numeric"
         maxLength={1}
-        aria-invalid={!!errorMessage && !showCountdown && !isWriting}
+        aria-invalid={isShowError}
         value={val}
         onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(i, e.target.value)}
         onKeyDown={(e) => handleBackspace(e, i)}
@@ -117,7 +121,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
     <form className={styles.container} onSubmit={handleSubmit}>
       <section className={styles.inputsWrapper}>
         <article className={styles.inputs}>{renderInputs()}</article>
-        {errorMessage && !showCountdown && !isWriting && (
+        {isShowError && (
           <article className={styles.errorContainer}>
             <ErrorMessage message={errorMessage} />
           </article>

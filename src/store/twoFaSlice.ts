@@ -23,7 +23,7 @@ const twoFactor = createSlice({
     resetTwoFA: (state) => {
       state.twoFaCode = ['', '', '', '', '', ''];
       state.showCountdown = false;
-      state.isWriting = false; // reset writing flag too
+      state.isWriting = false;
     },
 
     setShowCountdown: (state, action: PayloadAction<boolean>) => {
