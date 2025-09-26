@@ -2,7 +2,7 @@ import type { ResponceTwoFa } from 'types/TwoFaTypes';
 
 // mock API для two-factor
 export const mockVerifyTwoFaCode = async (code: string) => {
-  // Регулярка: ровно 6 цифр
+  // From 1 to 6
   const sixDigits = /^\d{6}$/;
 
   return new Promise<ResponceTwoFa>((resolve, reject) => {
