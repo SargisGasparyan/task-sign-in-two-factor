@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice';
 import twoFaSlice from './twoFaSlice';
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
     twoFactor: twoFaSlice,
   },
 });
