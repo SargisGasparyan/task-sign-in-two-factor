@@ -12,17 +12,25 @@
   .title {
     @include text-style(v.$font-size-2xl, 600);
     color: v.$color-black;
+    @media (max-width: 376px) {
+      @include text-style(v.$font-size-xl, 600);
+    }
   }
-
   .desc {
     @include text-style(v.$font-size-md, 400);
     color: v.$color-black;
+    @media (max-width: 376px) {
+      @include text-style(v.$font-size-sm, 400);
+    }
   }
 
   .backBtn {
     position: absolute;
     left: -10px;
-    top: -12px;
+    top: -15px;
     cursor: pointer;
+    @media (max-width: 450px) {
+      left: 10px;
+    }
   }
 }

@@ -17,6 +17,19 @@
 
 .inputs {
   @include flex-center(row, 18px);
+
+  @media (max-width: 756px) {
+    @include flex-center(row, 14px);
+  }
+  @media (max-width: 450px) {
+    @include flex-center(row, 10px);
+  }
+  @media (max-width: 376px) {
+    @include flex-center(row, 8px);
+  }
+  @media (max-width: 350px) {
+    @include flex-center(row, 4px);
+  }
 }
 .errorContainer {
   width: 100%;
