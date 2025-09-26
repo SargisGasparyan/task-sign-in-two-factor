@@ -38,3 +38,18 @@
     border-color: $color-primary;
   }
 }
+
+.eyeBtn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.eyeIcon {
+  width: 18px;
+  height: 18px;
+  color: red;
+}

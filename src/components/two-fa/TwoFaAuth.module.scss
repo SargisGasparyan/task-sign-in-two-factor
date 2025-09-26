@@ -8,10 +8,18 @@
     color: $color-gray-text;
     font-size: $font-size-md;
   }
+  .inputsWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
 }
 
 .inputs {
   @include flex-center(row, 18px);
+}
+.errorContainer {
+  width: 100%;
 }
 
 .input {

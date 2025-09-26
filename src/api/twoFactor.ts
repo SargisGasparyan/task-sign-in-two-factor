@@ -5,7 +5,7 @@ export const mockVerifyTwoFaCode = async (code: string) => {
       if (code === '123456') {
         resolve({ success: true, token: 'mock-token-123' });
       } else {
-        reject(new Error('Неверный код 2FA'));
+        reject(new Error('Invalid code'));
       }
     }, 1000);
   });

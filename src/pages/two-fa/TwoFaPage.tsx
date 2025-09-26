@@ -3,14 +3,14 @@ import { useMutation } from '@tanstack/react-query';
 import logo from '@assets/icons/logo.svg';
 import styles from './TwoFaPage.module.scss';
 import TwoFactorAuth from '@components/two-fa/TwoFaAuth';
-import ErrorMessage from '@components/error-message/ErrorMessage';
-import { useSelector } from 'react-redux';
-import type { RootState } from '@store/store';
+// import ErrorMessage from '@components/error-message/ErrorMessage';
+// import { useSelector } from 'react-redux';
+// import type { RootState } from '@store/store';
 import { mockVerifyTwoFaCode } from '@api/twoFactor';
 
 const TwoFaPage: React.FC = () => {
   // --- Redux state (destructured) ---
-  const { showCountdown, isWriting } = useSelector((state: RootState) => state.twoFactor);
+  // const { showCountdown, isWriting } = useSelector((state: RootState) => state.twoFactor);
 
   // --- React Query mutation for 2FA verification ---
   const { mutate, isPending, error } = useMutation({
@@ -47,9 +47,9 @@ const TwoFaPage: React.FC = () => {
           isLoading={isPending}
         />
 
-        {error && !showCountdown && !isWriting && (
+        {/* {error && !showCountdown && !isWriting && (
           <ErrorMessage message={(error as { message: string }).message} />
-        )}
+        )} */}
       </article>
     </main>
   );

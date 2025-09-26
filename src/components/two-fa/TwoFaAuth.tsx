@@ -11,6 +11,7 @@ import { setTwoFa, setShowCountdown, setIsWriting } from '@store/twoFaSlice';
 import { useCountdown } from '@components/ui/hooks/useCountDown';
 import Button from '@components/ui/Button/Button';
 import styles from './TwoFaAuth.module.scss';
+import ErrorMessage from '@components/error-message/ErrorMessage';
 
 interface TwoFactorAuthProps {
   length?: number;
@@ -114,8 +115,14 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <div className={styles.inputs}>{renderInputs()}</div>
-
+      <section className={styles.inputsWrapper}>
+        <article className={styles.inputs}>{renderInputs()}</article>
+        {errorMessage && !showCountdown && !isWriting && (
+          <article className={styles.errorContainer}>
+            <ErrorMessage message={errorMessage} />
+          </article>
+        )}
+      </section>
       {showCountdown && isEmpty ? (
         <p className={styles.countDown}>Get a new code in {formattedTime}</p>
       ) : (
