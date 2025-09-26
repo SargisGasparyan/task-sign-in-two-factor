@@ -118,7 +118,7 @@ const TwoFactorAuth: React.FC<TwoFactorAuthProps> = ({
     ));
 
   return (
-    <form className={styles.container} onSubmit={handleSubmit}>
+    <form className={styles.formContainer} onSubmit={handleSubmit}>
       <section className={styles.inputsWrapper}>
         <article className={styles.inputs}>{renderInputs()}</article>
         {isShowError && (

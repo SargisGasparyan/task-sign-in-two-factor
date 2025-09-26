@@ -1,9 +1,8 @@
-@use '../../styles//mixins' as *;
+@use '../../styles/mixins' as *;
 
 .container {
   width: 100%;
   height: 100vh;
-  // полное центрирование всей страницы
   @include flex-center();
 
   .wrapper {
@@ -11,7 +10,6 @@
     border-radius: 8px;
     padding: 32px;
     max-width: 440px;
-    // колонка с отступом 24px
     @include flex-center(column, 24px);
 
     @media (max-width: 367px) {
@@ -19,23 +17,19 @@
     }
 
     .infoWrapper {
-      // тоже колонка по центру
       @include flex-center(column);
 
       .logoWrapper {
-        // ряд с gap 9px
         @include flex-center(row, 9px);
       }
 
       .title {
-        // заголовок 28px, центр
         @include text-style(28px, 600);
       }
     }
 
     .formWrapper {
       width: 100%;
-      // колонка с gap 16px
       @include flex-center(column, 16px);
       .errrWrapper {
         width: 100%;

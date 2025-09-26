@@ -3,13 +3,13 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 interface TwoFaState {
   twoFaCode: string[];
   showCountdown: boolean;
-  isWriting: boolean; // new flag
+  isWriting: boolean;
 }
 
 const initialState: TwoFaState = {
   twoFaCode: ['', '', '', '', '', ''],
   showCountdown: true,
-  isWriting: false, // initial value
+  isWriting: false,
 };
 
 const twoFactor = createSlice({
@@ -31,7 +31,7 @@ const twoFactor = createSlice({
     },
 
     setIsWriting: (state, action: PayloadAction<boolean>) => {
-      state.isWriting = action.payload; // new reducer
+      state.isWriting = action.payload;
     },
   },
 });

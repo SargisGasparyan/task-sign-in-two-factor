@@ -9,7 +9,7 @@ function App() {
       <Routes>
         {/* По умолчанию редиректим на /signin */}
         <Route path="/" element={<Navigate to="/signin" replace />} />
-        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/two-fa" element={<TwoFaPage />} />
 
         <Route path="*" element={<NotFound />} />

@@ -1,9 +1,9 @@
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
-.container {
+.formContainer {
   @include flex-center(column, 24px);
-
+  height: 110px;
   .countDown {
     color: $color-gray-text;
     font-size: $font-size-md;
