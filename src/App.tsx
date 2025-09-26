@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         {/* По умолчанию редиректим на /signin */}
-        <Route path="/" element={<Navigate to="/signin" replace />} />
+        <Route path="/" element={<Navigate to="/sign-in" replace />} />
         <Route path="/sign-in" element={<SignInPage />} />
         <Route path="/two-fa" element={<TwoFaPage />} />
 
