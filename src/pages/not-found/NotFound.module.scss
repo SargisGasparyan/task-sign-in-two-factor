@@ -11,3 +11,16 @@
   @include text-style($font-size-4xl, 700);
   color: $color-primary;
 }
+.text {
+  font-size: $font-size-4xl;
+}
+
+.link {
+  color: $color-primary;
+  text-decoration: none;
+  transition: transform 1s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
