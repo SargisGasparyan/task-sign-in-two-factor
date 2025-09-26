@@ -12,7 +12,6 @@ function App() {
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/two-fa" element={<TwoFaPage />} />
 
-        {/* Страница 404 должна быть последней */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

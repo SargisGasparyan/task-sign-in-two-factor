@@ -43,7 +43,6 @@ const SignInPage: React.FC = () => {
     <main className={styles.container}>
       <article className={styles.wrapper}>
         <Header title="Sign in to your account to continue" />
-
         <form onSubmit={handleSubmit} className={styles.formWrapper}>
           <Input
             type="text"
@@ -52,7 +51,6 @@ const SignInPage: React.FC = () => {
             iconUrl={user}
             onChange={(e) => setEmail(e.target.value)}
           />
-
           <Input
             type="password"
             placeholder="Password"
@@ -60,13 +58,11 @@ const SignInPage: React.FC = () => {
             iconUrl={pass}
             onChange={(e) => setPassword(e.target.value)}
           />
-
           {error && (
             <section className={styles.errrWrapper}>
               <ErrorMessage message={(error as { message: string }).message} />
             </section>
           )}
-
           <Button type="submit" disabled={!email || !password || isPending}>
             {isPending ? 'Logging in...' : 'Log in'}
           </Button>

@@ -10,14 +10,14 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input: React.FC<InputProps> = ({ label, iconUrl, type, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [innerValue, setInnerValue] = useState(''); // локальное состояние для отслеживания текста
+  const [innerValue, setInnerValue] = useState('');
   const isPassword = type === 'password';
 
   const togglePassword = () => setShowPassword((prev) => !prev);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInnerValue(e.target.value);
-    props.onChange?.(e); // пробрасываем onChange наверх, если передан
+    props.onChange?.(e);
   };
 
   return (

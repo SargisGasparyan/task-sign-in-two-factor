@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
-  fallback?: ReactNode; // можно передавать кастомный fallback
+  fallback?: ReactNode;
 }
 
 interface State {
