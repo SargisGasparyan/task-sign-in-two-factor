@@ -24,7 +24,7 @@ const SignInPage: React.FC = () => {
   const { mutate, isPending, error } = useMutation({
     mutationFn: mockSignIn,
     onSuccess: (data) => {
-      console.log('Успешный вход! Токен:', data.token);
+      console.log('Successful login! Token:', data.token);
       navigate('/two-fa');
     },
   });

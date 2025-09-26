@@ -1,17 +1,9 @@
-// mock API для авторизации
-export enum AuthErrorCode {
-  InvalidEmail = 'InvalidEmail',
-  UserNotFound = 'UserNotFound',
-  WrongPassword = 'WrongPassword',
-}
+import { AuthErrorCode } from '../constants';
+import type { ResponceAuth, SignInPayloadAuth } from 'types/AuthTypes';
 
-export interface SignInPayload {
-  email: string;
-  password: string;
-}
-
-export const mockSignIn = async ({ email, password }: SignInPayload) => {
-  return new Promise<{ token: string; twoFa: boolean }>((resolve, reject) => {
+// mock API для sign-in
+export const mockSignIn = async ({ email, password }: SignInPayloadAuth) => {
+  return new Promise<ResponceAuth>((resolve, reject) => {
     setTimeout(() => {
       // Проверка формата e-mail
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

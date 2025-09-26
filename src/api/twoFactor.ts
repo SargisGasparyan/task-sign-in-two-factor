@@ -1,6 +1,8 @@
+import type { ResponceTwoFa } from 'types/TwoFaTypes';
+
 // mock API для two-factor
 export const mockVerifyTwoFaCode = async (code: string) => {
-  return new Promise<{ success: boolean; token?: string }>((resolve, reject) => {
+  return new Promise<ResponceTwoFa>((resolve, reject) => {
     setTimeout(() => {
       if (code === '123456') {
         resolve({ success: true, token: 'mock-token-123' });
